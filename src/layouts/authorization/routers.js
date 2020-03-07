@@ -6,6 +6,9 @@ export default [
   {
     name: 'sign_in',
     path: 'sign-in',
-    component: load('sign_in')
+    component: load('sign_in'),
+    meta: {
+      title: 'Авторизация'
+    }
   }
 ]

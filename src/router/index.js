@@ -16,6 +16,7 @@ const router = new VueRouter({
       path: '/authorization',
       component: () => import('@/layouts/authorization/Cascade'),
       children: authorization,
+      redirect: { name: 'sign_in' }
     },
     {
       name: 'cabinet',
