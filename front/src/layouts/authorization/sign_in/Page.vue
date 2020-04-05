@@ -17,6 +17,7 @@
 </template>
 
 <script>
+    import axios from '@/axios';
     export default {
       name: "Page",
       data() {
@@ -27,7 +28,11 @@
           }
         }
       },
-
+      created() {
+        // axios.get('auth/message/', { params: { message: 'Мой текст' } })
+        axios.get('/auth/message', {params:{ message: 'Лохушка' }});
+        axios.get('https://jsonplaceholder.typicode.com/todos/1', )
+      }
     }
 </script>
 
