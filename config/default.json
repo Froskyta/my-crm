@@ -1,4 +1,5 @@
 {
   "port": "5000",
+  "jwtSecret": "Froskyta",
   "mongoUri": "mongodb+srv://froskyta:80nimeto@cluster0-oezhh.mongodb.net/app?retryWrites=true&w=majority"
 }

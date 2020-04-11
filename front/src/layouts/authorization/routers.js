@@ -10,5 +10,13 @@ export default [
     meta: {
       title: 'Авторизация'
     }
+  },
+  {
+    name: 'sign_up',
+    path: 'sign-up',
+    component: load('sign_up'),
+    meta: {
+      title: 'Регистрация'
+    }
   }
 ]
