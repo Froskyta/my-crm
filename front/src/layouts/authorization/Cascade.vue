@@ -1,7 +1,7 @@
 <template>
   <div class="parent" :style="{ backgroundImage: `url('${require('@/assets/authorization/background.jpg')}')` }">
-    <div class="child-block" mode="out-in">
-      <transition name="slide-left">
+    <div class="child-block">
+      <transition name="slide-left" mode="out-in">
         <router-view></router-view>
       </transition>
     </div>

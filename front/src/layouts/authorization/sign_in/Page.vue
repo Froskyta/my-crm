@@ -34,7 +34,7 @@
                     const { message } = await this.$axios.post('/auth/login', {...this.params});
                     if ( message === 'ok' ) await this.$router.push({ name: 'home' });
                 } catch ({ errors }) {
-                    this.$global.showNotification(errors.toString());
+                    // this.$global.showNotification(errors.toString());
                 } finally {
                     this.loading = false;
                 }

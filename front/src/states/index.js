@@ -14,7 +14,7 @@ axios.interceptors.response.use(response => response.data, ({ message, response:
 
     if (status === 400) {
         // Клиентские ошибки
-        global.showNotification(data.errors.toString());
+        global.showNotification(String(data.errors.toString()).replace(',',', '));
         throw data;
     } else {
         // Обработка необычных ошибок

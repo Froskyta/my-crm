@@ -1,6 +1,6 @@
 <template>
     <div class="parent-app">
-        <transition name="slide-left">
+        <transition :name="nameAnimation">
             <router-view></router-view>
         </transition>
         <md-snackbar md-position="left" :md-duration="5000" :md-active.sync="showNotification" md-persistent>
@@ -15,9 +15,10 @@
     export default {
         name: 'App',
         title: ({ title }) => title,
-        data(){
+        data() {
             return {
                 showNotification: false,
+                nameAnimation: '',
             }
         },
         computed: {
@@ -36,6 +37,7 @@
         watch: {
             '$route'() {
                 this.$title = this.title;
+                this.nameAnimation = 'slide-left';
             },
             'notification'() {
                 if (this.notification.length > 0 ) this.showNotification = true;
@@ -53,8 +55,9 @@
     }
 
     body {
-        background: url('assets/authorization/animation-back.jpg') !important;
+        background-image: url('assets/authorization/animation-back.jpg');
         background-size: cover;
+        background-position: center;
     }
 </style>
 <style scoped lang="scss">

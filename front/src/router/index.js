@@ -33,8 +33,12 @@ router.beforeEach((to, from, next) => {
     to.fullPath === '/' ? next({ name: 'home' }) : next();
 
     // Проверка на авторизованность
-    !(document.cookie.indexOf('session=true') === 0) && to.name !== 'sign_in' ? next({ name: 'sign_in' }) : false;
-    document.cookie.indexOf('session=true') === 0 && to.name === 'sign_in' ? next({ name: 'home' }) : false;
+    if (!(document.cookie.indexOf('session=true') === 0) && to.matched[0].name !== 'authorization') next({ name: 'sign_in' });
+
+    if (document.cookie.indexOf('session=true') === 0 && to.matched[0].name !== 'cabinet') next({ name: 'home' })
+
+    // !(document.cookie.indexOf('session=true') === 0) && to.name !== 'sign_in' ? next({ name: 'sign_in' }) : false;
+    // document.cookie.indexOf('session=true') === 0 && to.name === 'sign_in' ? next({ name: 'home' }) : false;
 });
 
 export default router
