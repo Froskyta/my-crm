@@ -4,6 +4,9 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const config = require('config');
 const { check, validationResult } = require('express-validator');
+const auth = require('../middleware/auth.middleware');
+// const nodemailer = require('nodemailer');
+
 const router = Router();
 
 // auth/register
@@ -22,19 +25,17 @@ router.post(
 
         // Валидация, и вывод ошибок
         const errors = validationResult(request);
-        if (!errors.isEmpty()) return response.status(400).json({ errors: errors.array() });
+        if (!errors.isEmpty()) return response.status(400).json({ errors: errors.array().map(({ msg }) => msg) });
 
         // Поиск человека в таблице под таким email
-        const candidate = await User.findOne({ email });
-        if (candidate) return response.status(400).json({ message: 'Такой пользователь уже существует' });
+        if (await User.findOne({ email })) return response.status(400).json({ errors: 'Такой пользователь уже существует' });
 
         // Хэширование пароля и запись в бд
-        const hashedPassword = await bcrypt.hash(password, 12);
-        const user = User({ email, password: hashedPassword });
+        const user = await User({ email, password: await bcrypt.hash(password, 12) });
 
         // Жду успешности
         await user.save();
-        return response.status(201).json({ message: 'Ты успешно создался' })
+        return response.status(201).json({ message: 'ok' })
 
     } catch (e) { }
 });
@@ -53,40 +54,59 @@ router.post(
 
         // Валидация, и вывод ошибок
         const errors = validationResult(request);
-        if (!errors.isEmpty()) return response.status(400).json({ errors: errors.array() });
+        if (!errors.isEmpty()) return response.status(400).json({ errors: errors.array().map(({ msg }) => msg) });
 
         // Поиск пользователя
         const user = await User.findOne({ email });
         if (user) {
             // Проверка пароля
             if (await bcrypt.compare(password, user.password )){
+                const time_session = config.get('session_time_hour');
+
                 // Генерация JWT Token
                 const token = jwt.sign(
-                { userId: user.id },         // Айди пользователя
-                        config.get('jwtSecret'),     // Секретный ключ для расшифровки
-                { expiresIn: '1h' },          // Срок жизни
+                { userId: user.id },                        // Айди пользователя
+                        config.get('jwtSecret'),                    // Секретный ключ для расшифровки
+                { expiresIn: `${time_session}h` },          // Срок жизни
                 );
 
-                response.cookie('tracking_cookie', 'cookievalue', { httpOnly: false });
-                response.status(201).json({ id: user.id, token });
-
                 return response
+                    .cookie('session_id', token, { httpOnly: true, expires: new Date(Date.now() + time_session * 3600000) })
+                    .cookie('session', true, { expires: new Date(Date.now() + time_session * 3600000) })
+                    .status(201).json({ message: 'ok' });
             } else {
-                return response.status(400).json({ message: 'Не правильный пароль' })
+                return response.status(400).json({ errors: 'Лох, который не правильно ввел пароль' })
             }
         } else {
-            return response.status(400).json({ ...user, message: 'loh' })
+            return response.status(400).json({ ...user, errors: 'Лох, которого нету в базе' })
         }
     } catch (e) { }
 });
 
-// auth/message
-router.get('/message', async (request, response) => {
+// auth/logout
+router.get('/logout', async (request, response) => {
     try {
-       return response.status(200).json({ message: request.query })
-    }catch (e) {
-        
-    }
+        return response
+                    .clearCookie('session_id')
+                    .clearCookie('session')
+                    .status(200).json({ message: 'ok' });
+    } catch (e) { }
+});
+
+// auth/message
+router.get('/message', auth , async (request, response) => {
+    try {
+        // const transporter = await nodemailer.createTransport({
+        //     service: 'gmail',
+        //     auth: {
+        //         user: 'testforfroskyta@gmail.com',
+        //         pass: '80nimeto'
+        //     }
+        // });
+        //
+        // transporter.sendMail({ from: 'testforfroskyta@gmail.com', to: 'froskyta.dev@gmail.com', subject: 'Sending Email using Node.js', text: 'That was easy!' });
+        return response.status(200).json({ message: request.query })
+    }catch (e) { console.log("Почта", e.message) }
 });
 
 module.exports = router;

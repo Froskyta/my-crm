@@ -10,8 +10,8 @@ import VueMaterial from 'vue-material'
 import VuePageTitle from 'vue-page-title';
 
 
-
 import 'vue-material/dist/vue-material.min.css'
+import 'vue-material/dist/theme/default-dark.css'
 
 Vue.use(VueMaterial);
 Vue.use(VuePageTitle);

@@ -27,4 +27,14 @@ const router = new VueRouter({
   ]
 });
 
+router.beforeEach((to, from, next) => {
+
+    // Проверка на заходишь на главную страницу
+    to.fullPath === '/' ? next({ name: 'home' }) : next();
+
+    // Проверка на авторизованность
+    !(document.cookie.indexOf('session=true') === 0) && to.name !== 'sign_in' ? next({ name: 'sign_in' }) : false;
+    document.cookie.indexOf('session=true') === 0 && to.name === 'sign_in' ? next({ name: 'home' }) : false;
+});
+
 export default router

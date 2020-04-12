@@ -32,6 +32,8 @@
   },
   "devDependencies": {
     "concurrently": "^5.1.0",
+    "cookie-parser": "^1.4.5",
+    "nodemailer": "^6.4.6",
     "nodemon": "^2.0.2"
   }
 }

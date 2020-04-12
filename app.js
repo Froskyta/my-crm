@@ -2,11 +2,19 @@ const express = require('express');
 const config = require('config');
 const mongoose = require('mongoose');
 const cors = require('cors');
+const cookieParser = require('cookie-parser');
 
 // Создаю бэк на express
 const app = express();
-app.use(cors()); // Это для какой-то assess-control...
-app.use(express.json({ extended: true })); // Парсинг в json ответа фронта
+
+// Парсинг куки
+app.use(cookieParser());
+
+// Это для безопасности, возможности установки cookie
+app.use(cors({ credentials: true, origin: config.get('front_url') }));
+
+// Парсинг в json ответа фронта
+app.use(express.json({ extended: true }));
 
 // Роутинг
 app.use('/api/auth', require('./routes/auth.routes'));
@@ -14,7 +22,7 @@ app.use('/api/auth', require('./routes/auth.routes'));
 // Даты с конфига глобального
 const PORT = config.get('port');
 
-async function start(){
+async function start() {
     try {
         // Запускаю подключение к БД MongoDB
         // ** Обязательно проверить свой ip в белом листе в mongodb.com **
@@ -23,6 +31,7 @@ async function start(){
             useUnifiedTopology: true,
             useCreateIndex: true,
         });
+
         // Только после успешного подключения к БД запускается проект
         app.listen(PORT, () => console.log(`Приложение запустилось на порту ${PORT}`));
     }catch (e) {

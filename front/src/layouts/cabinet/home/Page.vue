@@ -1,12 +1,20 @@
 <template>
     <div>
-      Домащняя страница
+        Hime page
     </div>
 </template>
 
 <script>
     export default {
-        name: "Page"
+        name: "Page",
+        data: () => ({
+            menuVisible: false
+        }),
+        methods: {
+            toggleMenu () {
+                this.menuVisible = !this.menuVisible
+            }
+        }
     }
 </script>
 

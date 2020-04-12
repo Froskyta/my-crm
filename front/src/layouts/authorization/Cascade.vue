@@ -1,7 +1,7 @@
 <template>
   <div class="parent" :style="{ backgroundImage: `url('${require('@/assets/authorization/background.jpg')}')` }">
-    <div class="child-block">
-      <transition name="slide-left" mode="out-in">
+    <div class="child-block" mode="out-in">
+      <transition name="slide-left">
         <router-view></router-view>
       </transition>
     </div>
@@ -15,8 +15,8 @@
 </script>
 
 <style scoped lang="scss">
-.parent{
-    min-height: 100vh;
+.parent {
+    /*min-height: 100vh;*/
     background-size: cover;
     background-position: center;
     display: flex;
@@ -32,8 +32,8 @@
         overflow: hidden;
     }
 
-    &::v-deep button,
-    &::v-deep a {
+    &::v-deep .parent-page > button,
+    &::v-deep .parent-page > a {
         color: white;
         width: 100%;
         margin: 0;

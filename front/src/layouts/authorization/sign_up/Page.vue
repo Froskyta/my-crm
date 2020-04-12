@@ -9,8 +9,8 @@
             <label>Пароль</label>
             <md-input v-model="params['password']"></md-input>
         </md-field>
-        <md-button @click="sendSignUn"> Вход </md-button>
-        <md-button :to="{name: 'sign_in'}"> Назад </md-button>
+        <md-button @click="sendSignUn" :disabled="loading"> Зарегатся </md-button>
+        <md-button :to="{name: 'sign_in'}" :disabled="loading"> Назад </md-button>
     </div>
 </template>
 
@@ -22,15 +22,23 @@
                 params: {
                     email: null,
                     password: null,
-                }
+                },
+                loading: false,
             }
         },
         methods:{
             async sendSignUn(){
                 try {
-                    console.log(await this.$axios.post('/auth/register', {...this.params}))
+                    this.loading = true;
+                    const { message } = await this.$axios.post('/auth/register', {...this.params});
+                    if (message === 'ok') {
+                        await this.$router.push({ name: 'sign_in' });
+                        this.$global.showNotification('А теперь авторизуйся')
+                    }
                 }catch (e) {
 
+                } finally {
+                    this.loading = false;
                 }
             }
         },

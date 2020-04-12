@@ -6,6 +6,9 @@ export default [
   {
     name: 'home',
     path: 'home',
-    component: load('home')
+    component: load('home'),
+    meta: {
+      title: 'Главная'
+    }
   }
 ]
