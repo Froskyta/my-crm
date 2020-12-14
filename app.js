@@ -40,5 +40,7 @@ async function start() {
     }
 }
 
+// mongodb+srv://froskyta:<password>@cluster0.oezhh.mongodb.net/<dbname>?retryWrites=true&w=majority
+
 start();
 

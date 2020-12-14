@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: process.env.VUE_APP_API_URL,
+  baseURL: 'http://localhost:5000/api/',
 });
 
 instance.defaults.withCredentials = true;
