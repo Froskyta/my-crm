@@ -45,7 +45,7 @@
             }
         },
         mounted() {
-            // setTimeout(() => { this.$global.showNotification('awddddddddddddddd') }, 2000)
+            // setTimeout(() => { this.$global.showNotification('awddddddd1dddddddd') }, 2000)
         },
         created() {
             // axios.get('auth/mess age/', { params: { message: 'Мой текст' } })
