@@ -1,5 +1,5 @@
 {
-  "port": "5000",
+  "port": "443",
   "jwtSecret": "Froskyta",
   "mongoUri": "mongodb+srv://froskyta:80nimeto@cluster0-oezhh.mongodb.net/app?retryWrites=true&w=majority",
   "front_url": "http://localhost:8080",
