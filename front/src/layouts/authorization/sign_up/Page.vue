@@ -7,9 +7,9 @@
         </md-field>
         <md-field>
             <label>Пароль</label>
-            <md-input v-model="params['password']"></md-input>
+            <md-input v-model="params['password']" type="password"></md-input>
         </md-field>
-        <md-button @click="sendSignUn" :disabled="loading"> Зарегатся </md-button>
+        <md-button @click="sendSignUn" :disabled="loading"> Зарегаться </md-button>
         <md-button :to="{name: 'sign_in'}" :disabled="loading"> Назад </md-button>
     </div>
 </template>

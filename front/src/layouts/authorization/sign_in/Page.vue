@@ -32,9 +32,13 @@
                 try {
                     this.loading = true;
                     const { message } = await this.$axios.post('/auth/login', {...this.params});
-                    if ( message === 'ok' ) await this.$router.push({ name: 'home' });
-                } catch ({ errors }) {
-                    // this.$global.showNotification(errors.toString());
+                    if ( message === 'ok' ) {
+                        await this.$router.push({ name: 'home' });
+                        // await this.$router.push();
+                    }
+                } catch (errors) {
+                    console.log(errors)
+                    // this.$global.showNotification(errors);
                 } finally {
                     this.loading = false;
                 }
@@ -46,7 +50,7 @@
         created() {
             // axios.get('auth/mess age/', { params: { message: 'Мой текст' } })
             // axios.get('/auth/message/', {params:{ message: 'Лохушка' }});
-            axios.get('https://jsonplaceholder.typicode.com/todos/1', )
+            // axios.get('https://jsonplaceholder.typicode.com/todos/1', )
         }
     }
 </script>
