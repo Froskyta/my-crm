@@ -33,7 +33,7 @@ async function start() {
         });
 
         // Только после успешного подключения к БД запускается проект
-        app.listen(PORT, () => console.log(`Приложение запустилось на порту ${PORT}`));
+        app.listen(process.env.PORT || PORT, () => console.log(`Приложение запустилось на порту ${PORT}`));
     }catch (e) {
         console.log("Серверная ошибка", e.message);
         process.exit(1);
