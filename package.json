@@ -4,8 +4,8 @@
   "description": "Серверная часть моего первого тестового проекта",
   "main": "app.js",
   "scripts": {
-    "start": "concurrently \"npm run server\" \"npm install --prefix front\" \"npm run front_build\"",
-    "server": "node app.js",
+    "start": "node app.js",
+    "server": "nodemon app.js",
     "front": "npm run serve --prefix front",
     "front_build": "npm run build --prefix front",
     "dev": "concurrently \"npm run server\" \"npm run front\""
