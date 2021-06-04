@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios';
 
 const instance = axios.create({
-  baseURL: 'http://localhost:5000/api/',
+  baseURL: 'https://obscure-dawn-77349.herokuapp.com/api/',
 });
 
 instance.defaults.withCredentials = true;
