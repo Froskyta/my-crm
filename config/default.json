@@ -1,7 +1,0 @@
-{
-  "port": "3000",
-  "jwtSecret": "Froskyta",
-  "mongoUri": "mongodb+srv://froskyta:80nimeto@cluster0-oezhh.mongodb.net/app?retryWrites=true&w=majority",
-  "front_url": "https://mycrm.netlify.app",
-  "session_time_hour": 2
-}
