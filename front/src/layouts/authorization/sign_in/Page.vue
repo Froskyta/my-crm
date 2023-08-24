@@ -31,11 +31,11 @@
             async sendSignUn() {
                 try {
                     this.loading = true;
-                    const { message } = await this.$axios.post('/auth/login', {...this.params});
-                    if ( message === 'ok' ) {
+                    // const { message } = await this.$axios.post('/auth/login', {...this.params});
+                    // if ( message === 'ok' ) {
                         await this.$router.push({ name: 'home' });
                         // await this.$router.push();
-                    }
+                    // }
                 } catch (errors) {
                     console.log(errors)
                     // this.$global.showNotification(errors);

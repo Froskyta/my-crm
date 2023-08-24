@@ -27,18 +27,18 @@ const router = new VueRouter({
   ]
 });
 
-router.beforeEach((to, from, next) => {
-
-    // Проверка на заходишь на главную страницу
-    to.fullPath === '/' ? next({ name: 'home' }) : next();
-
-    // Проверка на авторизованность
-    if (!(document.cookie.indexOf('session=true') === 0) && to.matched[0].name !== 'authorization') next({ name: 'sign_in' });
-
-    if (document.cookie.indexOf('session=true') === 0 && to.matched[0].name !== 'cabinet') next({ name: 'home' })
-
-    // !(document.cookie.indexOf('session=true') === 0) && to.name !== 'sign_in' ? next({ name: 'sign_in' }) : false;
-    // document.cookie.indexOf('session=true') === 0 && to.name === 'sign_in' ? next({ name: 'home' }) : false;
-});
+// router.beforeEach((to, from, next) => {
+//
+//     // Проверка на заходишь на главную страницу
+//     to.fullPath === '/' ? next({ name: 'home' }) : next();
+//
+//     // Проверка на авторизованность
+//     if (!(document.cookie.indexOf('session=true') === 0) && to.matched[0].name !== 'authorization') next({ name: 'sign_in' });
+//
+//     if (document.cookie.indexOf('session=true') === 0 && to.matched[0].name !== 'cabinet') next({ name: 'home' })
+//
+//     // !(document.cookie.indexOf('session=true') === 0) && to.name !== 'sign_in' ? next({ name: 'sign_in' }) : false;
+//     // document.cookie.indexOf('session=true') === 0 && to.name === 'sign_in' ? next({ name: 'home' }) : false;
+// });
 
 export default router
